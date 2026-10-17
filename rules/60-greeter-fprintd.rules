@@ -1,0 +1,10 @@
+// Allow the greetd greeter user to use the fingerprint reader for login.
+// Only needed if fingerprint-at-login is enabled in the greeter; harmless
+// otherwise. dms-greeter runs as user "greeter" and must claim + verify via
+// fprintd; the default fprint policy does not grant an unprivileged greeter.
+polkit.addRule(function(action, subject) {
+    if (action.id.indexOf("net.reactivated.fprint.device.") === 0 &&
+        subject.user === "greeter") {
+        return polkit.Result.YES;
+    }
+});

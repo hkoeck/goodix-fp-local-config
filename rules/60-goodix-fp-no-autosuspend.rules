@@ -1,0 +1,5 @@
+# Keep the Goodix 27c6:5110 fingerprint sensor powered: USB autosuspend makes
+# it re-enumerate mid-verify ("No such device"), which breaks the goodixtls
+# driver. Overrides /usr/lib/udev/hwdb.d/60-autosuspend-libfprint-2.hwdb
+# (ID_AUTOSUSPEND=1) for this device.
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="27c6", ATTR{idProduct}=="5110", ATTR{power/control}="on", ATTR{power/persist}="1"
